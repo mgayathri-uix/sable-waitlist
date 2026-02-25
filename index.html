@@ -1197,40 +1197,71 @@
 </footer>
 
 <script>
-  const TALLY_FORM_ID = 'xXdxMy';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxC1blUTWvMBv4Vcmg6myDj04TfIDRbuTDF_rEUUniK3CpFoOzOj7FkHby8jjBqyjB84Q/exec';
+  const STORAGE_KEY = 'sable_waitlist_submitted';
 
-  async function submitToTally(email) {
-    try {
-      await fetch(`https://tally.so/api/forms/${TALLY_FORM_ID}/submissions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-      });
-    } catch (e) {
-      // Silent fail — submission still felt successful to user
-    }
+  function isAlreadySubmitted() {
+    return localStorage.getItem(STORAGE_KEY) !== null;
   }
 
+  function markAsSubmitted(email) {
+    localStorage.setItem(STORAGE_KEY, email);
+  }
+
+  function showAlreadySubmitted(formWrapId, successId) {
+    document.getElementById(formWrapId).style.display = 'none';
+    const msg = document.getElementById(successId);
+    msg.textContent = '✓ You\'re already on the list! We\'ll be in touch soon.';
+    msg.classList.add('show');
+  }
+
+  async function submitEmail(email) {
+    try {
+      await fetch(APPS_SCRIPT_URL + '?email=' + encodeURIComponent(email), {
+        method: 'GET',
+        mode: 'no-cors'
+      });
+    } catch (e) {
+      // Silent fail
+    }
+    markAsSubmitted(email);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (isAlreadySubmitted()) {
+      showAlreadySubmitted('form-wrap', 'success-msg');
+      showAlreadySubmitted('cta-form-wrap', 'cta-success-msg');
+    }
+  });
+
   function handleSubmit() {
+    if (isAlreadySubmitted()) {
+      showAlreadySubmitted('form-wrap', 'success-msg');
+      return;
+    }
     const email = document.getElementById('email-input').value;
     if (!email || !email.includes('@')) {
       document.getElementById('email-input').style.border = '1px solid #F87171';
       document.getElementById('email-input').placeholder = 'Please enter a valid email';
       return;
     }
-    submitToTally(email);
+    submitEmail(email);
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success-msg').classList.add('show');
   }
 
   function handleCtaSubmit() {
+    if (isAlreadySubmitted()) {
+      showAlreadySubmitted('cta-form-wrap', 'cta-success-msg');
+      return;
+    }
     const email = document.getElementById('cta-email-input').value;
     if (!email || !email.includes('@')) {
       document.getElementById('cta-email-input').style.border = '1px solid #F87171';
       document.getElementById('cta-email-input').placeholder = 'Please enter a valid email';
       return;
     }
-    submitToTally(email);
+    submitEmail(email);
     document.getElementById('cta-form-wrap').style.display = 'none';
     document.getElementById('cta-success-msg').classList.add('show');
   }
