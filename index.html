@@ -1197,7 +1197,19 @@
 </footer>
 
 <script>
-  const GOOGLE_FORM_URL = 'https://forms.gle/gZVcGLHuDqmMZrt97';
+  const TALLY_FORM_ID = 'xXdxMy';
+
+  async function submitToTally(email) {
+    try {
+      await fetch(`https://tally.so/api/forms/${TALLY_FORM_ID}/submissions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      });
+    } catch (e) {
+      // Silent fail — submission still felt successful to user
+    }
+  }
 
   function handleSubmit() {
     const email = document.getElementById('email-input').value;
@@ -1206,11 +1218,9 @@
       document.getElementById('email-input').placeholder = 'Please enter a valid email';
       return;
     }
+    submitToTally(email);
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success-msg').classList.add('show');
-    setTimeout(() => {
-      window.open(GOOGLE_FORM_URL, '_blank');
-    }, 800);
   }
 
   function handleCtaSubmit() {
@@ -1220,11 +1230,9 @@
       document.getElementById('cta-email-input').placeholder = 'Please enter a valid email';
       return;
     }
+    submitToTally(email);
     document.getElementById('cta-form-wrap').style.display = 'none';
     document.getElementById('cta-success-msg').classList.add('show');
-    setTimeout(() => {
-      window.open(GOOGLE_FORM_URL, '_blank');
-    }, 800);
   }
 </script>
 
