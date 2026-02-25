@@ -906,7 +906,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-eyebrow">✦ Built for creatives</div>
 
   <h1 class="hero-title">
@@ -1009,18 +1009,35 @@
   </div>
   <div class="why-grid">
     <div class="why-card">
-      <div class="why-icon">🗂</div>
-      <div class="why-title">Build a portfolio with real case studies</div>
+      <div class="why-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="7" height="9" rx="1.5" stroke="#A88BFF" stroke-width="1.8"/>
+          <rect x="14" y="3" width="7" height="5" rx="1.5" stroke="#A88BFF" stroke-width="1.8"/>
+          <rect x="14" y="12" width="7" height="9" rx="1.5" stroke="#A88BFF" stroke-width="1.8"/>
+          <rect x="3" y="16" width="7" height="5" rx="1.5" stroke="#A88BFF" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="why-title">Portfolio that speaks louder</div>
       <p class="why-desc">Every brief comes with a fictional client, industry context and project constraints. Complete it, get AI feedback and turn it into a portfolio case study that looks like real client work.</p>
     </div>
     <div class="why-card">
-      <div class="why-icon">📣</div>
-      <div class="why-title">Show up daily and grow your audience</div>
-      <p class="why-desc">Never run out of content ideas. Generate a fresh brief every day, design it, share it. Build your reputation on X and LinkedIn one project at a time — with a complete story to tell.</p>
+      <div class="why-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" stroke="#A88BFF" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="m15 5 4 4" stroke="#A88BFF" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="why-title">Build credibility. Daily.</div>
+      <p class="why-desc">Never run out of content ideas. Generate a fresh brief every day, design it and share it. Build your reputation on X and LinkedIn one project at a time — with a real story behind every post.</p>
     </div>
     <div class="why-card">
-      <div class="why-icon">💼</div>
-      <div class="why-title">Land clients and jobs with proof of work</div>
+      <div class="why-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#A88BFF" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke="#A88BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="why-title">Get hired. Get clients.</div>
       <p class="why-desc">Simulated client feedback reads like a real creative director wrote it. Add it to your portfolio, attach it to job applications and show exactly how you think and work under a real brief.</p>
     </div>
   </div>
@@ -1172,33 +1189,42 @@
 <footer>
   <div class="footer-logo">Sable</div>
   <div class="footer-links">
-    <a href="#" class="footer-link">X (Twitter)</a>
-    <a href="#" class="footer-link">LinkedIn</a>
-    <a href="#" class="footer-link">Privacy</a>
+    <a href="https://x.com/gayathri05m" target="_blank" class="footer-link">X (Twitter)</a>
+    <a href="https://www.linkedin.com/in/gayathri05m/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="#hero" class="footer-link">Privacy</a>
   </div>
-  <div class="footer-copy">© 2025 Sable. All rights reserved.</div>
+  <div class="footer-copy">© 2026 Sable. All rights reserved.</div>
 </footer>
 
 <script>
+  const GOOGLE_FORM_URL = 'https://forms.gle/gZVcGLHuDqmMZrt97';
+
   function handleSubmit() {
     const email = document.getElementById('email-input').value;
     if (!email || !email.includes('@')) {
-      document.getElementById('email-input').style.borderBottom = '1px solid #F87171';
+      document.getElementById('email-input').style.border = '1px solid #F87171';
       document.getElementById('email-input').placeholder = 'Please enter a valid email';
       return;
     }
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success-msg').classList.add('show');
+    setTimeout(() => {
+      window.open(GOOGLE_FORM_URL, '_blank');
+    }, 800);
   }
 
   function handleCtaSubmit() {
     const email = document.getElementById('cta-email-input').value;
     if (!email || !email.includes('@')) {
+      document.getElementById('cta-email-input').style.border = '1px solid #F87171';
       document.getElementById('cta-email-input').placeholder = 'Please enter a valid email';
       return;
     }
     document.getElementById('cta-form-wrap').style.display = 'none';
     document.getElementById('cta-success-msg').classList.add('show');
+    setTimeout(() => {
+      window.open(GOOGLE_FORM_URL, '_blank');
+    }, 800);
   }
 </script>
 
